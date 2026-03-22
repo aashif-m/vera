@@ -1,0 +1,38 @@
+{
+  "zeroshot": {
+    "total": 100,
+    "json_valid": 100,
+    "json_correct_structure": 99,
+    "json_malformed": 0,
+    "json_valid_pct": 100.0,
+    "json_correct_pct": 99.0,
+    "precision": 36.5,
+    "recall": 36.5,
+    "f1": 36.33333333333333,
+    "quote_accuracy": 98.0
+  },
+  "fewshot": {
+    "total": 100,
+    "json_valid": 100,
+    "json_correct_structure": 100,
+    "json_malformed": 0,
+    "json_valid_pct": 100.0,
+    "json_correct_pct": 100.0,
+    "precision": 46.0,
+    "recall": 83.0,
+    "f1": 58.133333333333326,
+    "quote_accuracy": 55.166666666666664
+  },
+  "finetuned": {
+    "total": 100,
+    "json_valid": 100,
+    "json_correct_structure": 100,
+    "json_malformed": 0,
+    "json_valid_pct": 100.0,
+    "json_correct_pct": 100.0,
+    "precision": 99.5,
+    "recall": 98.5,
+    "f1": 98.66666666666666,
+    "quote_accuracy": 100.0
+  }
+}

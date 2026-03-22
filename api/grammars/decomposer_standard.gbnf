@@ -1,0 +1,12 @@
+# GBNF grammar for Vera standard decomposer output
+# Guarantees valid JSON array with fields: quote, atomic_claim, type
+
+root ::= "[" ws "]" | "[" ws item (ws "," ws item)* ws "]"
+item ::= "{" ws "\"quote\"" ws ":" ws string ws "," ws "\"atomic_claim\"" ws ":" ws string ws "," ws "\"type\"" ws ":" ws type-value ws "}"
+type-value ::= "\"FACTUAL\"" | "\"OPINION\""
+string ::= "\"" characters "\""
+characters ::= character*
+character ::= [^"\\] | "\\" escape
+escape ::= "\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | "u" hex hex hex hex
+hex ::= [0-9a-fA-F]
+ws ::= [ \t\n\r]*

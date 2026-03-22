@@ -1,0 +1,92 @@
+# ===========================================
+# Vera CFG Ablation Study - Docker Compose
+# ===========================================
+# Spins up decomposer + verifier (both llama.cpp),
+# then runs the ablation script comparing outputs
+# WITH and WITHOUT GBNF grammar constraints.
+#
+# Usage:
+#   cd eval/ablation
+#   docker compose up --build
+#
+# Outputs: ./outputs/ablation/
+#
+# Prerequisites:
+#   - Models in ../../models/decomposer-cot/ and ../../models/verifier-cot/
+#   - Test data in ../../datasets/distilled_cot/ and ../../datasets/distilled_verification/
+# ===========================================
+
+services:
+  # Decomposer CoT - llama.cpp server
+  decomposer-cot:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    container_name: vera-ablation-decomposer
+    volumes:
+      - ../../models/decomposer-cot:/models:ro
+    command: >
+      -m /models/${DECOMPOSER_COT_MODEL:-LFM2.5-1.2B-Instruct.F16.gguf}
+      --host 0.0.0.0 --port 8080
+      -t 4 -c 2048
+    networks:
+      - ablation-network
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # Verifier CoT - llama.cpp server
+  verifier-cot:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    container_name: vera-ablation-verifier
+    volumes:
+      - ../../models/verifier-cot:/models:ro
+    command: >
+      -m /models/${VERIFIER_COT_MODEL:-LFM2.5-1.2B-Instruct.F16.gguf}
+      --host 0.0.0.0 --port 8080
+      -t 4 -c 2048
+    networks:
+      - ablation-network
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # Ablation runner
+  ablation-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vera-ablation-runner
+    volumes:
+      - ../../datasets:/app/data:ro
+      - ./outputs:/app/outputs
+    environment:
+      - DECOMPOSER_URL=http://decomposer-cot:8080
+      - VERIFIER_URL=http://verifier-cot:8080
+      - SAMPLE_SIZE=${SAMPLE_SIZE:-100}
+      - RANDOM_SEED=${RANDOM_SEED:-42}
+      - DECOMP_DATA=/app/data/distilled_cot/vera_test.jsonl
+      - VERIF_DATA=/app/data/distilled_verification/vera_test.jsonl
+    depends_on:
+      decomposer-cot:
+        condition: service_healthy
+      verifier-cot:
+        condition: service_healthy
+    networks:
+      - ablation-network
+
+networks:
+  ablation-network:
+    driver: bridge

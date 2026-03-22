@@ -1,0 +1,11 @@
+# GBNF grammar for Vera CoT verifier output
+# Guarantees valid JSON object with fields: reasoning, verdict
+
+root ::= "{" ws "\"reasoning\"" ws ":" ws string ws "," ws "\"verdict\"" ws ":" ws verdict-value ws "}"
+verdict-value ::= "\"SUPPORTED\"" | "\"REFUTED\""
+string ::= "\"" characters "\""
+characters ::= character*
+character ::= [^"\\] | "\\" escape
+escape ::= "\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | "u" hex hex hex hex
+hex ::= [0-9a-fA-F]
+ws ::= [ \t\n\r]*

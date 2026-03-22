@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-01-25T22:40:51.177293",
+  "random_seed": 42,
+  "fever_total": 2100,
+  "fever_train": 1467,
+  "fever_val": 315,
+  "fever_test": 318,
+  "wiki_total": 600,
+  "wiki_train": 420,
+  "wiki_val": 90,
+  "wiki_test": 90
+}

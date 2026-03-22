@@ -1,0 +1,23 @@
+{
+  "finetuned": {
+    "accuracy": 0.8928,
+    "precision": 0.9032,
+    "recall": 0.7304,
+    "f1": 0.8077,
+    "json_valid_rate": 1.0
+  },
+  "zeroshot": {
+    "accuracy": 0.7802,
+    "precision": 0.646,
+    "recall": 0.6348,
+    "f1": 0.6404,
+    "json_valid_rate": 1.0
+  },
+  "fewshot": {
+    "accuracy": 0.7534,
+    "precision": 0.5689,
+    "recall": 0.8261,
+    "f1": 0.6738,
+    "json_valid_rate": 0.6944
+  }
+}

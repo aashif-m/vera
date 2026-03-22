@@ -1,0 +1,38 @@
+# Environment
+.env
+.env.local
+
+# Models (downloaded via scripts/download-models.sh)
+models/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+dist/
+build/
+.venv/
+venv/
+
+# Caddy
+caddy_data/
+caddy_config/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data pipeline cache
+datasets/cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Tests / eval outputs
+tests/__pycache__/
+eval/ablation/outputs/

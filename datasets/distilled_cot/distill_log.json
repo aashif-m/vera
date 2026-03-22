@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-02-04T12:54:03.423663",
+  "model": "google/gemini-3-flash-preview",
+  "train_seeds": 1887,
+  "val_seeds": 405,
+  "test_seeds": 408
+}

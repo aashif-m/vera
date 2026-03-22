@@ -1,0 +1,58 @@
+{
+  "total_samples": 2772,
+  "accuracy": 0.8344,
+  "macro_precision": 0.7095,
+  "macro_recall": 0.7448,
+  "macro_f1": 0.7076,
+  "per_class": {
+    "SUPPORTED": {
+      "precision": 0.9158,
+      "recall": 0.7598,
+      "f1": 0.8305,
+      "support": 845
+    },
+    "REFUTED": {
+      "precision": 0.9335,
+      "recall": 0.9001,
+      "f1": 0.9165,
+      "support": 1732
+    },
+    "CONFLICTING": {
+      "precision": 0.2793,
+      "recall": 0.5744,
+      "f1": 0.3758,
+      "support": 195
+    }
+  },
+  "confusion_matrix": {
+    "SUPPORTED": {
+      "SUPPORTED": 642,
+      "REFUTED": 62,
+      "CONFLICTING": 141
+    },
+    "REFUTED": {
+      "SUPPORTED": 25,
+      "REFUTED": 1559,
+      "CONFLICTING": 148
+    },
+    "CONFLICTING": {
+      "SUPPORTED": 34,
+      "REFUTED": 49,
+      "CONFLICTING": 112
+    }
+  },
+  "label_distribution": {
+    "ground_truth": {
+      "REFUTED": 1732,
+      "SUPPORTED": 845,
+      "CONFLICTING": 195
+    },
+    "predictions": {
+      "REFUTED": 1670,
+      "SUPPORTED": 701,
+      "CONFLICTING": 401
+    }
+  },
+  "model": "google/gemini-3-flash-preview",
+  "seed": 42
+}

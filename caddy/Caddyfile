@@ -1,0 +1,32 @@
+# ===========================================
+# Vera Caddyfile
+# ===========================================
+# Reverse proxy with external SSL certificates
+# Certificates are generated via Certbot with Cloudflare DNS challenge
+# and mounted from /opt/certs on the host
+
+{$DOMAIN} {
+    # Use external certificates from Cloudflare DNS challenge
+    tls /certs/fullchain.pem /certs/privkey.pem
+
+    # Reverse proxy to Streamlit frontend
+    reverse_proxy frontend:8501
+
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+
+    # Logging
+    log {
+        output stdout
+        format console
+    }
+}
+
+# Redirect HTTP to HTTPS
+http://{$DOMAIN} {
+    redir https://{$DOMAIN}{uri} permanent
+}

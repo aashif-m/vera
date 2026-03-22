@@ -1,0 +1,13 @@
+# Local development overrides
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+services:
+  # Expose frontend directly on localhost:8501 (skip Caddy)
+  frontend:
+    ports:
+      - "8501:8501"
+
+  # Disable Caddy for local development
+  caddy:
+    profiles:
+      - production
